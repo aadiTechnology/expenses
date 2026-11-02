@@ -1,0 +1,37 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:25.990
+Aadi products are assessed against three pillars: the software product, marketing and sales, and A I solutions. In Spend O S, marketing and sales means visibility into the money spent on growth, not a C R M. This video shows campaign spend against budget, the data import with its strict checks, and how the platform administrator switches modules on and off for each customer.
+
+00:00:26.450 --> 00:00:52.405
+Sanjay, the finance manager, opens Growth Spend. Each row is a campaign, a configurable dimension that the organization defined itself. It shows actual spend, budget, variance and utilisation. At the bottom, marketing spend without a campaign tag is listed separately, and the total reconciles to the marketing transactions: forty thousand rupees.
+
+00:00:52.863 --> 00:01:24.212
+Look at the last three columns. For the internship campaign, leads and customers were imported, so cost per lead and an estimated acquisition cost are shown. For the school admissions campaign only leads exist, so the cost per lead is shown but acquisition cost says unavailable. For the webinar nothing was imported at all. The product never invents return on investment or acquisition cost without the data behind it, and says which source and attribution method any figure used.
+
+00:01:24.667 --> 00:01:44.183
+Finance imports results exported from the ad platform. This file has two rows, one valid and one naming a campaign that does not exist. The import is all or nothing: the system reports row three with its problem and imports nothing, so partial, misleading numbers can never appear.
+
+00:01:44.644 --> 00:02:10.114
+Now the corrected file. The source, the period, the currency and the attribution method, last touch self reported, are recorded with the import. The webinar row now shows fifty five leads and four customers, with cost per lead and an estimated acquisition cost, clearly labelled as estimates. The import history lists both attempts, the rejected one and the accepted one.
+
+00:02:10.577 --> 00:02:30.103
+Campaign and channel are optional tags on any expense. Finance records six thousand rupees of LinkedIn retargeting against the webinar campaign. The tag lives with the transaction as configuration, not as a new column in the core table, so another organization could use initiatives or regions instead.
+
+00:02:30.555 --> 00:02:47.926
+The platform administrator has no access to any customer s financial records. Their screen lists every module with its pillar classification, priority, dependencies and the plans that include it. Changing a classification is itself recorded in the audit history.
+
+00:02:48.385 --> 00:03:11.921
+Under tenant entitlements, every customer s effective decision is listed with its reason: plan, override, expired override or missing dependency. The administrator switches Growth Spend off for Aadi Technology. The data import module depends on it, so it switches off too. No code change, no separate build for that customer.
+
+00:03:12.380 --> 00:03:33.456
+Back as Sanjay, the Growth Spend menu item has disappeared. Opening its address directly shows that the page is not available. And a direct call to the interface returns forbidden with a consistent, non sensitive message. Hiding a button is not security; the server checks the subscription on every protected request.
+
+00:03:33.917 --> 00:03:47.764
+The administrator clears the override, so the customer returns to what their plan includes. Growth Spend works again for Sanjay. Every override, who set it and why, is kept in the audit history.
+
+00:03:48.229 --> 00:04:05.016
+The personal household plan does not include marketing and sales spend. Rahul s menu has no such item, and the same direct call is refused by the server with the same forbidden answer. Different customers, same product, different entitlements.
+
+00:04:05.477 --> 00:04:33.017
+To summarise the scope: marketing and sales here means spend visibility, budget variance, and metrics only when real data is imported. It is not a C R M, an ad platform, or a sales pipeline. Live integrations with ad platforms are not part of this release; the C S V import is the agreed boundary. Use Sanjay for the growth report and the import, and the platform admin account for entitlements.

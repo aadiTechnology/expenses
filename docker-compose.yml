@@ -1,0 +1,19 @@
+# Local PostgreSQL for Aadi SpendOS (demo / development). Credentials are demo-only.
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: spendos-postgres
+    environment:
+      POSTGRES_USER: spendos
+      POSTGRES_PASSWORD: spendos_dev
+      POSTGRES_DB: postgres
+    ports:
+      - "15433:5432"
+    volumes:
+      - spendos_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spendos"]
+      interval: 3s
+      retries: 20
+volumes:
+  spendos_pgdata:

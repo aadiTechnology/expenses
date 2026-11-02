@@ -1,0 +1,55 @@
+# STAGING for Coolify: demo mode and demo data ON, invite-only sign-up, UI and API on separate domains.
+# In Coolify, set the domains of the "app" service (port 8000) to:
+#   https://expenses.aaditechnology.com:8000,https://expensesapi.aaditechnology.com:8000
+# Secrets (SMTP password) are set as Coolify environment variables, never in this file.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${SPENDOS_API_URL:-https://expensesapi.aaditechnology.com}
+    expose:
+      - "8000"
+    environment:
+      - SPENDOS_ENV=${SPENDOS_ENV:-demo}
+      - SPENDOS_SEED_DEMO=${SPENDOS_SEED_DEMO:-true}
+      - SPENDOS_ALLOW_REGISTRATION=${SPENDOS_ALLOW_REGISTRATION:-false}
+      - SPENDOS_SECRET=${SERVICE_PASSWORD_64_SECRET}
+      - SPENDOS_DB=postgresql+psycopg://spendos:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/spendos
+      - SPENDOS_STORAGE=/data/files
+      - SPENDOS_CORS=${SPENDOS_CORS:-https://expenses.aaditechnology.com}
+      - SPENDOS_PUBLIC_URL=${SPENDOS_PUBLIC_URL:-https://expenses.aaditechnology.com}
+      - SPENDOS_SMTP_HOST=${SPENDOS_SMTP_HOST:-}
+      - SPENDOS_SMTP_PORT=${SPENDOS_SMTP_PORT:-587}
+      - SPENDOS_SMTP_USER=${SPENDOS_SMTP_USER:-}
+      - SPENDOS_SMTP_PASSWORD=${SPENDOS_SMTP_PASSWORD:-}
+      - SPENDOS_SMTP_FROM=${SPENDOS_SMTP_FROM:-}
+      - SPENDOS_SMTP_SECURITY=${SPENDOS_SMTP_SECURITY:-starttls}
+    volumes:
+      - spendos_files:/data/files
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=spendos
+      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRES}
+      - POSTGRES_DB=spendos
+    volumes:
+      - spendos_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spendos -d spendos"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  spendos_files:
+  spendos_pgdata:

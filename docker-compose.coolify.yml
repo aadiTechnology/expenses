@@ -1,0 +1,52 @@
+# Coolify "Docker Compose" resource. Coolify generates the secrets and the public URL for the variables marked SERVICE_*.
+# Required variables you set in Coolify: SPENDOS_ENV (production or demo), SPENDOS_SEED_DEMO (true/false), SPENDOS_ALLOW_REGISTRATION.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${SPENDOS_API_URL:-}
+    environment:
+      - SERVICE_FQDN_APP_8000
+      - SPENDOS_ENV=${SPENDOS_ENV:-production}
+      - SPENDOS_SEED_DEMO=${SPENDOS_SEED_DEMO:-false}
+      - SPENDOS_ALLOW_REGISTRATION=${SPENDOS_ALLOW_REGISTRATION:-true}
+      - SPENDOS_SECRET=${SERVICE_PASSWORD_64_SECRET}
+      - SPENDOS_DB=postgresql+psycopg://spendos:${SERVICE_PASSWORD_POSTGRES}@postgres:5432/spendos
+      - SPENDOS_STORAGE=/data/files
+      - SPENDOS_CORS=${SPENDOS_CORS:-}
+      - SPENDOS_PUBLIC_URL=${SPENDOS_PUBLIC_URL:-}
+      - SPENDOS_SMTP_HOST=${SPENDOS_SMTP_HOST:-}
+      - SPENDOS_SMTP_PORT=${SPENDOS_SMTP_PORT:-587}
+      - SPENDOS_SMTP_USER=${SPENDOS_SMTP_USER:-}
+      - SPENDOS_SMTP_PASSWORD=${SPENDOS_SMTP_PASSWORD:-}
+      - SPENDOS_SMTP_FROM=${SPENDOS_SMTP_FROM:-}
+      - SPENDOS_SMTP_SECURITY=${SPENDOS_SMTP_SECURITY:-starttls}
+    volumes:
+      - spendos_files:/data/files
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=spendos
+      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRES}
+      - POSTGRES_DB=spendos
+    volumes:
+      - spendos_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spendos -d spendos"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  spendos_files:
+  spendos_pgdata:

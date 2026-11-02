@@ -1,0 +1,52 @@
+WEBVTT
+
+00:00:00.001 --> 00:00:26.695
+This is Aadi Spend O S, a spend management platform. This video shows the personal edition, used by a household in place of a paper expense notebook. Everything you see is synthetic demo data for a fictional family, the Sharmas, in October twenty twenty six. We start on the sign in page, where a demo accounts panel lists every sample person, so a reviewer can browse on their own.
+
+00:00:27.146 --> 00:00:52.780
+Rahul Sharma is the household owner. Choosing his name fills the sign in form, and the password stays hidden behind dots. After signing in, the dashboard shows the month at a glance: income, expenses net of refunds, savings with the savings rate, and the balance across active accounts. Credit card dues are shown separately, so the card is never mistaken for cash.
+
+00:00:53.245 --> 00:01:18.726
+Scrolling down: spending by category, daily and monthly trends, the most recent transactions, and budget utilisation, each bar coloured by how much of the budget is used. The savings goals sit beside them. At the bottom are AI generated observations. Each one is labelled as a fact, an estimate, or an advisory flag, and always marked AI assisted.
+
+00:01:19.181 --> 00:01:43.806
+The transactions page lists every record the signed in person may see, ten at a time or more, with filters for type, category, account, family member and date range. Typing petrol in the search box narrows the list immediately. Opening a transaction shows its full details and its history. Every create, edit and delete is recorded in the audit history with who did it and when.
+
+00:01:44.262 --> 00:02:03.128
+Adding an expense is a short form. If someone presses save with nothing entered, the screen explains what is missing, instead of failing silently. Amounts must be positive and can have at most two decimal places, because money is stored as whole paise, never as floating point numbers.
+
+00:02:03.581 --> 00:02:19.333
+Now a real entry: three hundred and twenty rupees for an auto fare, category transport, paid from cash. The date defaults to today. One press on save records it, and the cash balance falls by exactly that amount.
+
+00:02:19.797 --> 00:02:35.489
+The system guards against double entry. Here we try to record seven hundred rupees of petrol on the twentieth of October, which already exists. A warning appears, and nothing is saved unless the person deliberately chooses save anyway.
+
+00:02:35.942 --> 00:03:04.087
+The accounts page shows five accounts: cash, a bank account, a UPI wallet, a credit card and a digital wallet. Balances are calculated from the transactions, never typed in. Moving a thousand rupees from the bank to cash is a transfer. It changes both balances, but it is not counted as income or expense, and paying the card bill works the same way, so card purchases are never counted twice.
+
+00:03:04.547 --> 00:03:26.317
+Budgets are set for the household and for categories such as groceries or transport. Actual spend is computed from the very same transactions, so budgets and reports can never disagree. Alerts are raised at fifty, seventy five, ninety and one hundred percent, and each alert is raised only once, not repeated on every new entry.
+
+00:03:26.768 --> 00:03:49.599
+The AI assistant turns a sentence into reviewable expenses. We type: today vegetables two fifty, milk sixty and petrol five hundred. It finds three entries, suggests a category for each, and shows a confidence score. Nothing has been saved yet. The AI only suggests; a person confirms.
+
+00:03:50.057 --> 00:04:09.772
+The person can correct any date, description, category or amount, then chooses the account and confirms. Only now are the three transactions created, and each keeps a record that it was AI assisted and who confirmed it. Lines that the assistant is unsure about stay unticked until a person marks that they checked them.
+
+00:04:10.234 --> 00:04:26.065
+Here the sentence has an item the assistant cannot categorise: pooja items four fifty. It is shown with low confidence, left unticked, and cannot be saved until the person reviews it. Low confidence results are never saved silently.
+
+00:04:26.520 --> 00:04:53.109
+The insights tab shows facts such as the change from last month, the highest spending category and recurring payments. An unusual amount is flagged as an advisory signal, with its reason and the supporting record, and explicitly not as an error or fraud. The person can acknowledge or dismiss it, and that decision is written to the audit history. Forecasts, when present, are labelled as estimates with their assumption.
+
+00:04:53.562 --> 00:05:06.399
+Questions in plain language are answered only from records the signed in person is allowed to see. Asking how much was spent on groceries returns the total together with the source transactions it was calculated from.
+
+00:05:06.849 --> 00:05:27.445
+The reports page offers monthly income and expense, category wise expenses, account balances, spending per family member, budget against actual and a monthly comparison. Every report is calculated on the server from the same transactions, and can be downloaded as a C S V file or a P D F.
+
+00:05:27.904 --> 00:05:48.655
+Now Sunita, the grandmother, signs in as a family viewer. The server only returns items that the family marked as shared, her menu has no add or settings pages, and even typing the add expense address directly shows that it is not available. These limits are enforced by the backend, not just by hiding buttons.
+
+00:05:49.111 --> 00:06:18.100
+That was the personal edition. To explore yourself, use the demo accounts panel on the sign in page. Rahul has full access, Priya and Aarav are family members, and Sunita is a viewer. This release shows the web application. The phone application is not part of this sprint, but the web pages are responsive, which the next video shows. The following videos cover the business edition and the marketing and A I pillars.

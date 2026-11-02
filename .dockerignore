@@ -1,0 +1,9 @@
+**/node_modules
+**/__pycache__
+frontend/dist
+backend/data
+backend/tests
+videos
+docs
+*.mp4
+.git

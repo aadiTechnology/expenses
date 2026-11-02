@@ -1,0 +1,12 @@
+node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+backend/data/
+videos/node_modules/
+videos/.work/
+videos/verification/
+videos/*.mp4
+videos/*.log
+*.log
+.env
