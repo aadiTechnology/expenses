@@ -25,6 +25,18 @@ async function parse(res: Response) {
   return body
 }
 
+// A failed request (network error) or a successful one tells the offline bar the truth even when the device says it is "online"
+async function send(url: string, init: RequestInit) {
+  try {
+    const res = await fetch(url, init)
+    window.dispatchEvent(new Event('spendos:reachable'))
+    return res
+  } catch (e) {
+    window.dispatchEvent(new Event('spendos:unreachable'))
+    throw new ApiError(0, 'Cannot reach the server. Check your connection and try again.')
+  }
+}
+
 export async function api(path: string, opts: { method?: string; body?: any; form?: FormData } = {}) {
   const headers: Record<string, string> = {}
   const t = getToken()
@@ -32,12 +44,12 @@ export async function api(path: string, opts: { method?: string; body?: any; for
   let body: any
   if (opts.form) body = opts.form
   else if (opts.body !== undefined) { headers['Content-Type'] = 'application/json'; body = JSON.stringify(opts.body) }
-  const res = await fetch(`${BASE}${path}`, { method: opts.method || (body ? 'POST' : 'GET'), headers, body })
+  const res = await send(`${BASE}${path}`, { method: opts.method || (body ? 'POST' : 'GET'), headers, body })
   return parse(res)
 }
 
 export async function download(path: string, filename: string) {
-  const res = await fetch(`${BASE}${path}`, { headers: { Authorization: `Bearer ${getToken()}` } })
+  const res = await send(`${BASE}${path}`, { headers: { Authorization: `Bearer ${getToken()}` } })
   if (!res.ok) throw new ApiError(res.status, 'Download failed')
   const url = URL.createObjectURL(await res.blob())
   const a = document.createElement('a')

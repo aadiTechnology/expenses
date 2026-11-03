@@ -42,8 +42,9 @@ export function OfflineBar() {
   const [online, setOnline] = useState(navigator.onLine)
   useEffect(() => {
     const on = () => setOnline(true), off = () => setOnline(false)
-    window.addEventListener('online', on); window.addEventListener('offline', off)
-    return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off) }
+    const pairs: [string, () => void][] = [['online', on], ['spendos:reachable', on], ['offline', off], ['spendos:unreachable', off]]
+    pairs.forEach(([e, f]) => window.addEventListener(e, f))
+    return () => pairs.forEach(([e, f]) => window.removeEventListener(e, f))
   }, [])
   if (online) return null
   return <Box role="status" sx={{ position: 'sticky', top: 0, zIndex: 1500, bgcolor: 'warning.main', color: '#fff', textAlign: 'center', py: 0.5, fontSize: 14 }}>You are offline. Figures shown may be out of date and changes cannot be saved.</Box>
