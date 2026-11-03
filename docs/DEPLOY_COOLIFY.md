@@ -2,7 +2,7 @@
 
 Target: **staging with demo data**, UI at `https://expenses.aaditechnology.com`, API at `https://expensesapi.aaditechnology.com`, invite-only sign-up, SMTP email. Repository: `https://github.com/aadiTechnology/expenses`.
 
-What was verified locally (Docker, fresh PostgreSQL 16): the image builds; production mode refuses to start without a 32+ character secret; migrations run on start; demo data loads in demo mode and never in production; the health check passes; CORS allows only the UI origin; a browser served from one address talks to the API on another with no errors; 49 automated tests pass. **Not yet verified: a real Coolify deployment and a real SMTP server** (no access/credentials yet).
+What was verified locally (Docker, fresh PostgreSQL 16): the image builds; production mode refuses to start without a 32+ character secret; migrations run on start; demo data loads in demo mode and never in production; the health check passes; CORS allows only the UI origin; a browser served from one address talks to the API on another with no errors; 49 automated tests pass. **Since then (2 Nov 2026):** deployed to Coolify with `python deploy/coolify_deploy.py`; HTTPS certificates issued; all 17 demo logins pass against the live site; a real invitation email sent through Brevo SMTP was received.
 
 ## 1. DNS (at your DNS provider)
 

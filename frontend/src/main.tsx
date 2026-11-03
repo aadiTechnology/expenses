@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import App from './App'
+import { registerServiceWorker } from './pwa'
 
 const theme = createTheme({
   palette: { primary: { main: '#3949ab' }, secondary: { main: '#00695c' }, background: { default: '#f5f6fa' },
@@ -12,6 +13,8 @@ const theme = createTheme({
   typography: { fontFamily: '"Segoe UI", Roboto, system-ui, sans-serif', button: { textTransform: 'none', fontWeight: 600 } },
   components: { MuiButton: { defaultProps: { disableElevation: true } }, MuiTextField: { defaultProps: { size: 'small' } } },
 })
+
+registerServiceWorker()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

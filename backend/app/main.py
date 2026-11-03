@@ -90,4 +90,7 @@ if DIST.exists():
     @app.get("/{path:path}")
     def spa(path: str):
         f = DIST / path
-        return FileResponse(f if path and f.is_file() else DIST / "index.html")
+        target = f if path and f.is_file() else DIST / "index.html"
+        # the shell, service worker and manifest must always be revalidated so a release reaches installed apps; fingerprinted assets never change
+        cache = "public, max-age=31536000, immutable" if path.startswith("assets/") else "no-cache"
+        return FileResponse(target, headers={"Cache-Control": cache})

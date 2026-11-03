@@ -25,6 +25,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import { visuallyHidden } from '@mui/utils'
 import { api, getToken, setToken } from './api'
 import { LANGS } from './i18n'
+import { InstallPrompt, OfflineBar } from './InstallPrompt'
 import { ToastHost, useApp, type Session } from './ui'
 import { Forgot, Login, Register } from './pages/Auth'
 import Dashboard from './pages/Dashboard'
@@ -156,6 +157,8 @@ export default function App() {
   if (!ready) return null
   return (
     <ToastHost me={me} reload={reload}>
+      <OfflineBar />
+      <InstallPrompt />
       {!me ? (
         <Routes>
           <Route path="/register" element={<Register />} />
